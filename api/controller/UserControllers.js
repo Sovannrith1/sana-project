@@ -40,6 +40,47 @@ exports.findAll = async (req, res, next) => {
   }
 };
 
+exports.user_login = async (req, res, next) => {
+  try {
+    const credentail = req.body.credentail;
+    const password = req.body.password;
+    // validation request
+    if (credentail === "")
+      return res.send({
+        message: "Please! Enter your credentail.",
+        success: false,
+      });
+
+    if (password === "")
+      return res.send({
+        message: "Please! Enter your password.",
+        success: false,
+      });
+    // ============= ============ ============
+    const [result] = await Users.user_login(credentail);
+    console.log(result[0][0]);
+
+    if (result[0].length > 0) {
+      const match = await bcrypt.compare(password, result[0][0].Password);
+      if (!match) {
+        res.send({
+          message: "Wrong credentail or password...!",
+          success: false,
+        });
+      } else {
+        res.send({ message: "Login successfully.", success: true });
+      }
+    } else {
+      res.send({
+        message: "Wrong credentail or password...!",
+        success: false,
+      });
+    }
+  } catch (err) {
+    next(err);
+  }
+};
+
 // exports.UserLogin = async (req, res, next) => {
 //   try {
 //     // validate request
