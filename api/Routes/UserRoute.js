@@ -5,6 +5,7 @@ const router = express.Router();
 //const verifyToken = require("../middlewares/VerifyToken");
 
 router.get("/api/users", Users.findAll);
+router.post("/api/login", Users.user_login);
 // router.get("/api/user/:id", Users.findById);
 // router.put("/api/user/:id", Users.updateOne);
 // router.delete("/api/delete/:id", Users.deleteById);

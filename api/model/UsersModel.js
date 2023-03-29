@@ -5,7 +5,7 @@ class Users {
     (this.username = username),
       (this.password = password),
       (this.email = email),
-    this.role_id = role_id;
+      (this.role_id = role_id);
     this.status_id = status_id;
   }
 
@@ -31,69 +31,74 @@ class Users {
     return db.execute(sql, [username]);
   }
 
-  static checkEmail(email){
+  static checkEmail(email) {
     const sql = `SELECT *FROM tbl_user WHERE Email=?`;
-    return db.execute(sql,[email]);
+    return db.execute(sql, [email]);
   }
 
-//   static findByEmail(email) {
-//     const sql = `SELECT id,username,email,tblRoles.role_name,password FROM tblUsers 
-//     INNER JOIN tblRoles ON tblUsers.role_id = tblRoles.role_id WHERE email = ? AND status_id =1`;
-//     return db.execute(sql, [email]);
-//   }
+  static user_login(credentail) {
+    const sql = "CALL SP_Login(?)";
+    return db.execute(sql, [credentail]);
+  }
 
-//   static updateRefreshToken(id, refreshToken) {
-//     const sql = "UPDATE tblUsers SET token = ? WHERE id = ?";
-//     return db.query(sql, [refreshToken, id]);
-//   }
+  //   static findByEmail(email) {
+  //     const sql = `SELECT id,username,email,tblRoles.role_name,password FROM tblUsers
+  //     INNER JOIN tblRoles ON tblUsers.role_id = tblRoles.role_id WHERE email = ? AND status_id =1`;
+  //     return db.execute(sql, [email]);
+  //   }
 
-//   static findByRefreshToken(refresh_token) {
-//     const sql = `SELECT username,email,id,tblRoles.role_name FROM tblUsers 
-//     INNER JOIN tblRoles ON tblUsers.role_id = tblRoles.role_id
-//     WHERE token = ?`;
-//     return db.execute(sql, [refresh_token]);
-//   }
+  //   static updateRefreshToken(id, refreshToken) {
+  //     const sql = "UPDATE tblUsers SET token = ? WHERE id = ?";
+  //     return db.query(sql, [refreshToken, id]);
+  //   }
 
-//   static findByTokenAndId(token, id) {
-//     const sql = "SELECT *FROM tblUsers WHERE token = ? AND id=?";
-//     return db.execute(sql, [token, id]);
-//   }
+  //   static findByRefreshToken(refresh_token) {
+  //     const sql = `SELECT username,email,id,tblRoles.role_name FROM tblUsers
+  //     INNER JOIN tblRoles ON tblUsers.role_id = tblRoles.role_id
+  //     WHERE token = ?`;
+  //     return db.execute(sql, [refresh_token]);
+  //   }
 
-//   static updatePassword(password, id) {
-//     const sql = "UPDATE tblUsers SET password = ? WHERE id=?";
-//     return db.query(sql, [password, id]);
-//   }
+  //   static findByTokenAndId(token, id) {
+  //     const sql = "SELECT *FROM tblUsers WHERE token = ? AND id=?";
+  //     return db.execute(sql, [token, id]);
+  //   }
 
-//   static findById(id) {
-//     const sql = `SELECT tblUsers.id,username,email,tblRoles.role_name,tblUsers.role_id,phone_number,password,tblUsers.status_id FROM tblUsers 
-//     INNER JOIN tblRoles ON tblUsers.role_id = tblRoles.role_id 
-//     INNER JOIN tblStatus ON tblUsers.status_id = tblStatus.id
-//     WHERE tblUsers.id = ?`;
-//     return db.execute(sql, [id]);
-//   }
+  //   static updatePassword(password, id) {
+  //     const sql = "UPDATE tblUsers SET password = ? WHERE id=?";
+  //     return db.query(sql, [password, id]);
+  //   }
 
-//   static deleteById(id) {
-//     const sql = "DELETE FROM tblUsers WHERE id = ?";
-//     return db.execute(sql, [id]);
-//   }
+  //   static findById(id) {
+  //     const sql = `SELECT tblUsers.id,username,email,tblRoles.role_name,tblUsers.role_id,phone_number,password,tblUsers.status_id FROM tblUsers
+  //     INNER JOIN tblRoles ON tblUsers.role_id = tblRoles.role_id
+  //     INNER JOIN tblStatus ON tblUsers.status_id = tblStatus.id
+  //     WHERE tblUsers.id = ?`;
+  //     return db.execute(sql, [id]);
+  //   }
 
-//   static updateOne(username, email, phone_number, role_id, status_id, id) {
-//     const sql =
-//       "UPDATE tblUsers SET username=?,email=?,phone_number=?,role_id=?,status_id=? WHERE id = ?";
-//     return db.query(sql, [
-//       username,
-//       email,
-//       phone_number,
-//       role_id,
-//       status_id,
-//       id,
-//     ]);
-//   }
+  //   static deleteById(id) {
+  //     const sql = "DELETE FROM tblUsers WHERE id = ?";
+  //     return db.execute(sql, [id]);
+  //   }
 
-//   static update_duplicate(id, userName) {
-//     const sql = "SELECT *FROM tblUsers WHERE NOT id = ? AND username = ?";
-//     return db.execute(sql, [id, userName]);
-//   }
+  //   static updateOne(username, email, phone_number, role_id, status_id, id) {
+  //     const sql =
+  //       "UPDATE tblUsers SET username=?,email=?,phone_number=?,role_id=?,status_id=? WHERE id = ?";
+  //     return db.query(sql, [
+  //       username,
+  //       email,
+  //       phone_number,
+  //       role_id,
+  //       status_id,
+  //       id,
+  //     ]);
+  //   }
+
+  //   static update_duplicate(id, userName) {
+  //     const sql = "SELECT *FROM tblUsers WHERE NOT id = ? AND username = ?";
+  //     return db.execute(sql, [id, userName]);
+  //   }
 }
 
 module.exports = Users;
